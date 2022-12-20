@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=qatar_user_password
+      - POSTGRES_USER=qatar_user
+      - POSTGRES_DB=qatar_db
+    ports:
+      - "5432:5432"
