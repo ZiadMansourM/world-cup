@@ -3,9 +3,13 @@ from django.shortcuts import render
 
 # Create your views here.
 def home(request):
-    return render(request,'main/home.html',{
-        'title':'home'
+    return render(request,'main/home.html', {
+        'title': 'home',
+        'page': 'home'
     })
 
-def about(request):
-    return http.HttpResponse("About Page")
+def match_list(request):
+    return render(request,'main/match-list.html', {
+        'title': 'Matches',
+        'page': 'matches'
+    })

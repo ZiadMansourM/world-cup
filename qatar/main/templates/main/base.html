@@ -6,21 +6,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Ckeditor Media Files -->
-    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
-    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
-    <!-- css files -->
+    <meta name="description" content="This is a final project for Computer Consultation Course">
+    <meta name="author" content="Ziad Mansour Mohamed SREboy.com">
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" type="text/css" href="{% static 'main/css/bootstrap.min.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/main.css' %}">
     {% block css %}{% endblock css %}
-    <!-- Custom Google Fonts styles for this template -->
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,800;1,700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+    <script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script>
     
     <!-- Icon -->
     <link rel="shortcut icon" href="{% static 'main/assets/tornado.svg' %}" /> 
@@ -36,93 +28,66 @@
 
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand d-none d-lg-inline" href="{% url 'home' %}">Misr Public Library Luxor - MPLL</a>
-            <a class="navbar-brand d-lg-none" href="{% url 'home' %}">Misr Public Library Luxor</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Blog</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Services
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">                        
-                            <li><a class="dropdown-item" href="{% url 'home' %}">Contact Us</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Animal Index</a></li>
-                            <li><a class="dropdown-item" href="{%url 'home'%}">Booking</a></li>
-                        </ul>
-                    </li>
-                    {% if user.is_authenticated %}
-                        <!-- profile -->
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'home' %}">Profile</a>
-                        </li>
-                        <!-- log out -->
-                        <li class="nav-item d-lg-none">
-                            <a class="nav-link" href="{% url 'home' %}">Log Out</a>
-                        </li>
-                        <li class="nav-item ms-2 d-none d-lg-inline">
-                            <a class="btn btn-secondary" href="{% url 'home' %}">Log Out</a>
-                        </li>
-                    {% else %}
-                        <!-- Sign in -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}">Sign In</a>
-                        </li>
-                        <!-- SignUp -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}">Sign Up</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
+<body class="text-center text-white">
+    <!-- init AlpineJS -->
+    <div 
+        class="container d-flex flex-column min-vh-100 p-3"
+        x-data="state()"
+        x-init="loadInit()"
+    >
+    <!-- nav-bar -->
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <div class="col text-start">
+            <h3><a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">🏆 Qatar</a></h3>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" x-bind:class="opened=='home'?'active':''" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" x-bind:class="opened=='matches'?'active':''" href="{% url 'match-list' %}">Matches</a></li>
+                {% if user.is_authenticated %}
+                    <!-- profile -->
+                    <li class="nav-item"><a class="nav-link" href="{% url 'match-list' %}">Profile</a></li>
+                    <!-- log out -->
+                    <li class="nav-item"><a class="nav-link" href="{% url 'match-list' %}">Log Out</a></li>
+                {% else %}
+                    <!-- Sign in -->
+                    <li class="nav-item"><a class="nav-link" href="{% url 'match-list' %}">Sign In</a></li>
+                    <!-- SignUp -->
+                    <li class="nav-item"><a class="nav-link" href="{% url 'match-list' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
         </div>
     </nav>
-    {% block header %}{% endblock header %}
-    <!-- main -->
-    {% if messages %} 
-        <section class="mt-3">
-            <div class="container-lg">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %} 
-            </div>
-        </section>
-    {% endif %} 
-    {% block content %}{% endblock content %}
-    <!-- <section class="main-section">
-        <div class="container-lg">
-        </div>
-    </section> -->
-    <!-- Footer-->
-    <footer class="py-5 bg-dark ">
-        <div class="container ">
-            <p class="m-0 text-center text-white ">Copyright &copy; Misr Public Library Luxor - MPLL 2021</p>
-        </div>
+    <!-- Main -->
+    <main role="main" class="px-3 my-auto">
+        {% if messages %} 
+            <section class="mt-3">
+                <div class="container-lg">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %} 
+                </div>
+            </section>
+        {% endif %}
+        {% block content %}{% endblock content %}
+    </main>
+    <!-- Footer -->
+    <footer class="text-white-50">
+        <p>&copy; <span x-text="new Date().getFullYear()"></span> <a href="https://www.SREboy.com/" class="text-white link">Qatar.SREboy.com</a></p>
     </footer>
-    <!-- End main -->
-    <!-- JavaScript Files -->
-    <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <!-- <script src="{% static 'main/js/bootstrap.bundle.min.js' %}"></script> -->
-    {% block js %}{% endblock js %}
-    <!-- jquery -->
-    <!-- <script src="{% static 'main/js/jquery-3.6.0.min.js' %}"></script> -->
-    {% block jQ %}{% endblock jQ %}
-    <!-- Js ToolTip Enable Script -->
     <script>
-        const tooltips = document.querySelectorAll('.tt')
-        tooltips.forEach(t => {
-        new bootstrap.Tooltip(t)
-        })
+        function state() {
+            return {
+                opened: '{{ page }}',
+                loadInit() {},
+                logOut() {}
+            }
+        }
     </script>
 </body>
-    {% block ajax %}{% endblock ajax %}
 </html>
