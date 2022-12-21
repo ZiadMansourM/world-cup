@@ -1,7 +1,8 @@
 ```Console
 $ django-admin startproject qatar
-$ python manage.py runserver
-$ python manage.py startapp users
-$ python manage.py makemigrations
-$ python manage.py migrate
+$ python3 manage.py runserver
+$ python3 manage.py startapp users
+$ python3 manage.py makemigrations
+$ python3 manage.py migrate
+$ python3 manage.py createsuperuser
 ```
