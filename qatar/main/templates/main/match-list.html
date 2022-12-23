@@ -91,7 +91,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="reserveTicketModal">Reserve Tickets</h5>
+                            <h5 class="modal-title" id="reserveTicketModal">Reserve Tickets for <span style="color: rgb(232, 141, 14);">{{ match.team_one }}</span> - <span style="color: rgb(232, 141, 14);">{{ match.team_two }}</span>:</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -99,22 +99,494 @@
                                 <input type="text" class="form-control" id="floatingInputDrguid" value="{{ match.id }}" readonly>
                                 <label for="floatingInputDrguid">Match Guid</label>
                             </div>
-                            <!-- Same Column -->
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingInputDrname" value="{{ match }}" readonly>
-                                        <label for="floatingInputDrname">Match details</label>
+                            <!-- 4*4 grid of seats buttons -->
+                            <!-- center grid -->
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">A0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">A1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">A2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">A3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">A4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">A5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">A6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">A7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">A8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">A9</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingInputDrname" value="{{ match.score_one }} - {{ match.score_two }}" readonly>
-                                        <label for="floatingInputDrname">Match Results</label>
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">B0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">B1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">B2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">B3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">B4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">B5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">B6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">B7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">B8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">B9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">C0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">C1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">C2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">C3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">C4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">C5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">C6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">C7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">C8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">C9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">D0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">D1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">D2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">D3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">D4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">D5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">D6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">D7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">D8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">D9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">E0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">E1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">E2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">E3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">E4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">E5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">E6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">E7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">E8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">E9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">F0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">F1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">F2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">F3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">F4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">F5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">F6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">F7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">F8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">F9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">G0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">G1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">G2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">G3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">G4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">G5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">G6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">G7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">G8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">G9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">H0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">H1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">H2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">H3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">H4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">H5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">H6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">H7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">H8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">H9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">I0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">I1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">I2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">I3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">I4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">I5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">I6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">I7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">I8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">I9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">J0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">J1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">J2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">J3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">J4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">J5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">J6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">J7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">J8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">J9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- K row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">K0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">K1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">K2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">K3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">K4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">K5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">K6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">K7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">K8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">K9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- L row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">L0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">L1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">L2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">L3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">L4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">L5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">L6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">L7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">L8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">L9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- M row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">M0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">M1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">M2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">M3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">M4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">M5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">M6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">M7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">M8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">M9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- N row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">N0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">N1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">N2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">N3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">N4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">N5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">N6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">N7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">N8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">N9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- O row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">O0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">O1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">O2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">O3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">O4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">O5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">O6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">O7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">O8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">O9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- P row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">P0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">P1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">P2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">P3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">P4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">P5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">P6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">P7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">P8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">P9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Q row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Q0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Q1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Q2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Q3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Q4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Q5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Q6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Q7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Q8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Q9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- R row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">R0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">R1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">R2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">R3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">R4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">R5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">R6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">R7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">R8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">R9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- S row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">S0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">S1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">S2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">S3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">S4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">S5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">S6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">S7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">S8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">S9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- T row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">T0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">T1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">T2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">T3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">T4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">T5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">T6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">T7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">T8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">T9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- U row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">U0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">U1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">U2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">U3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">U4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">U5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">U6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">U7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">U8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">U9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- V row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">V0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">V1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">V2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">V3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">V4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">V5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">V6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">V7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">V8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">V9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- W row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">W0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">W1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">W2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">W3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">W4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">W5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">W6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">W7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">W8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">W9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- X row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">X0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">X1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">X2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">X3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">X4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">X5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">X6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">X7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">X8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">X9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Y row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Y0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Y1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Y2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Y3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Y4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Y5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Y6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Y7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Y8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Y9</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Z row -->
+                                <div class="row">
+                                    <div class="col mb-1 text-center">
+                                        <div class="btn-toolbar d-flex align-items-center justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Z0</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Z1</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Z2</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Z3</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Z4</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Z5</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Z6</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Z7</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Z8</button>
+                                                <button type="button" class="btn w-100 btn-secondary fw-bold border-white bg-white">Z9</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary fw-bold border-white bg-white" data-bs-dismiss="modal">Nice</button>
                         </div>
