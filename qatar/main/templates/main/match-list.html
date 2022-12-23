@@ -32,36 +32,49 @@
                     {% for match in matches %}
                         <tr class="d-flex">
                             <th class="col-1" scope="row">{{ forloop.counter }}</th>
-                            <td class="col-6 col-md-8 col-lg-8 ellipses"><a data-bs-toggle="modal" data-bs-target="#detailMatchModel">{{ match }}</a></td>
+                            <td class="col-6 col-md-8 col-lg-8 ellipses"><a data-bs-toggle="modal" data-bs-target="#detailMatchModel-{{ match.id }}">{{ match }}</a></td>
                             <td class="col-5 col-md-3 col-lg-3">{{ match.score_one }} - {{ match.score_two }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        <!-- Detail Modal -->
-        <div class="modal fade custom-model" id="detailMatchModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailMatchModel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="detailMatchModel">Category Details</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInputDrguid" value="{{ match.id }}" readonly>
-                            <label for="floatingInputDrguid">Match Guid</label>
+        {% for match in matches %}
+            <!-- Detail Modal -->
+            <div class="modal fade custom-model" id="detailMatchModel-{{ match.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailMatchModel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailMatchModel">Match Details</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInputDrname" value="{{ match }}" readonly>
-                            <label for="floatingInputDrname">Match details</label>
+                        <div class="modal-body">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInputDrguid" value="{{ match.id }}" readonly>
+                                <label for="floatingInputDrguid">Match Guid</label>
+                            </div>
+                            <!-- Same Column -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInputDrname" value="{{ match }}" readonly>
+                                        <label for="floatingInputDrname">Match details</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInputDrname" value="{{ match.score_one }} - {{ match.score_two }}" readonly>
+                                        <label for="floatingInputDrname">Match Results</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary fw-bold border-white bg-white" data-bs-dismiss="modal">Nice</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary fw-bold border-white bg-white" data-bs-dismiss="modal">Nice</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
     </section>
 {% endblock content %}
