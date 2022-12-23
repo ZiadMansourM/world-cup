@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import (
@@ -6,6 +7,7 @@ from django.contrib.auth import (
     logout as auth_logout,
     get_user_model
 )
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def login(request):
@@ -45,6 +47,43 @@ def register(request):
     return render(request, 'users/register.html', {
         'title': 'Register',
         'page': 'register'
+    })
+
+@login_required(login_url='login')
+def profile(request):
+    user = request.user
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email'] or ""
+        gender = int(request.POST['gender']) if request.POST['gender'] else None
+        nationality = request.POST['nationality'] or None
+        birthday = (
+            datetime.datetime.strptime(request.POST['birthday'], "%B %d, %Y").strftime("%Y-%m-%d") 
+            if request.POST['birthday'] else None
+        )
+        User = get_user_model()
+        if (
+            user.username != username
+            and User.objects.filter(username=username.lower()).exists()
+        ):
+            messages.error(request, 'Username already exists!')
+        else:
+            args = {
+                'email': email,
+                'gender': gender, 
+                'nationality': nationality,
+                'birthday': birthday
+            }
+            args.update({'username': username.lower()}) if username != user.username else None
+            for key, value in args.items():
+                setattr(user, key, value)
+            user.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile')
+    return render(request, 'users/profile.html', {
+        'user': user,
+        'title': 'Profile',
+        'page': 'profile'
     })
 
 def logout(request):
