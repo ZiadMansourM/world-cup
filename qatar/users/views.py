@@ -53,6 +53,16 @@ def register(request):
 def profile(request):
     user = request.user
     if request.method == 'POST':
+        if request.POST.get('password-one', False) and request.POST.get('password-two', False):
+            password_one = request.POST['password-one']
+            password_two = request.POST['password-two']
+            if password_one == password_two:
+                user.set_password(password_one)
+                user.save()
+                messages.success(request, 'Password updated successfully!')
+            else:
+                messages.error(request, 'Passwords do not match!')
+            return redirect('profile')
         username = request.POST['username']
         email = request.POST['email'] or ""
         gender = int(request.POST['gender']) if request.POST['gender'] else None

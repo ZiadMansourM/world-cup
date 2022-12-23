@@ -1,6 +1,15 @@
 {% extends "main/base.html" %} 
 {% load static %}
 
+{% block js %}
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+{% endblock js %}
+
 {% block content %}
     <section id="categories">
         <div class="row">
@@ -8,13 +17,13 @@
                 <h2 class="text-start ps-4">Matches</h2>
             </div>
             <div class="col text-end">
-                <button class="btn text-white" data-bs-toggle="modal" data-bs-target="#createCategory">
-                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                    </svg> -->
-                    Contact Us
-                </button>
+                {% if user.is_authenticated %}
+                    <button class="btn text-white" data-bs-toggle="modal" data-bs-target="#contactUsModal">Contact Us</button>
+                {% else %}
+                    <div style="display: inline-block;" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign In First">
+                        <button class="btn text-white" disabled>Contact Us</button>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <hr />
@@ -33,9 +42,9 @@
                     {% for match in matches %}
                         <tr class="d-flex">
                             <th class="col-1" scope="row">{{ forloop.counter }}</th>
-                            <td class="col-5 ellipses"><a data-bs-toggle="modal" data-bs-target="#detailMatchModel-{{ match.id }}">{{ match }}</a></td>
+                            <td class="col-5 ellipses"><a data-bs-toggle="modal" data-bs-target="#detailMatchModal-{{ match.id }}">{{ match }}</a></td>
                             <td class="col-3">{{ match.score_one }} - {{ match.score_two }}</td>
-                            <td class="col-3">link</td>
+                            <td class="col-3"><a data-bs-toggle="modal" data-bs-target="#reserveTicketModal-{{ match.id }}">link</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -43,11 +52,46 @@
         </div>
         {% for match in matches %}
             <!-- Detail Modal -->
-            <div class="modal fade custom-model" id="detailMatchModel-{{ match.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailMatchModel" aria-hidden="true">
+            <div class="modal fade custom-model" id="detailMatchModal-{{ match.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailMatchModel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="detailMatchModel">Match Details</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInputDrguid" value="{{ match.id }}" readonly>
+                                <label for="floatingInputDrguid">Match Guid</label>
+                            </div>
+                            <!-- Same Column -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInputDrname" value="{{ match }}" readonly>
+                                        <label for="floatingInputDrname">Match details</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInputDrname" value="{{ match.score_one }} - {{ match.score_two }}" readonly>
+                                        <label for="floatingInputDrname">Match Results</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary fw-bold border-white bg-white" data-bs-dismiss="modal">Nice</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Reserve Ticket Modal -->
+            <div class="modal fade custom-model" id="reserveTicketModal-{{ match.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reserveTicketModal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reserveTicketModal">Reserve Tickets</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">

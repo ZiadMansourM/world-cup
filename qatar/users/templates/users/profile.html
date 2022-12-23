@@ -23,6 +23,7 @@
             <form  action="" method="POST">
                 {% csrf_token %}
                 <h1 class="h3 mb-3 fw-normal">Profile</h1>
+                <hr>
                 <div class="form-floating pb-2">
                     <input name="username" value="{{ user.username }}" type="text" class="form-control" id="floatingInputLogin" placeholder="Enter username" required>
                     <label for="floatingInputLogin">Username</label>
@@ -45,24 +46,56 @@
                     <input name="nationality" x-bind:value="'{{ user.nationality }}'=='None'?'':'{{ user.nationality }}'" value="{{ user.nationality }}" type="text" class="form-control" id="floatingInputLogin" placeholder="Enter username">
                     <label for="floatingInputLogin">Nationality</label>
                 </div>
-                <!-- <div class="form-floating">
-                    <input name="password-one" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-                    <label for="floatingPassword">Password One</label>
-                </div>
-                <div class="form-floating">
-                    <input name="password-two" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-                    <label for="floatingPassword">Password Two</label>
-                </div> -->
                 <!-- Three buttons on a row -->
                 <div class="row">
                     <div class="col">
-                        <button type="submit" class="w-100 btn btn-primary">Update</button>
+                        <button type="submit" class="w-100 btn btn-sm btn-primary">Update</button>
                     </div>
                     <div class="col">
-                        <button type="button" class="w-100 btn btn-success">View Tickets</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#changePasswordModel" class="w-100 btn btn-sm btn-danger">Change Password</button>
                     </div>
                 </div>
+                <button type="button" class="w-100 btn btn-success mt-2">View Tickets</button>
             </form>
         </div>
     </section>
+    <!-- Change Password Modal -->
+    <div class="modal fade custom-model" id="changePasswordModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailMatchModel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form  action="" method="POST">
+                    {% csrf_token %}
+                    <!-- Hidden Input -->
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailMatchModel">Change Your Password</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInputDrguid" value="{{ user.id }}" readonly>
+                            <label for="floatingInputDrguid">User Guid</label>
+                        </div>
+                        <!-- Same Column -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-floating">
+                                    <input name="password-one" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                                    <label for="floatingPassword">Password One</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-floating">
+                                    <input name="password-two" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                                    <label for="floatingPassword">Password Two</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="w-100 btn btn-sm btn-danger">Update Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
