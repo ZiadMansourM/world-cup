@@ -123,15 +123,10 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="reserveTicketModal">Reserve Tickets for <span style="color: rgb(232, 141, 14);">{{ match.team_one }}</span> - <span style="color: rgb(232, 141, 14);">{{ match.team_two }}</span>:</h5>
+                            <h5 class="modal-title" id="reserveTicketModal"><span style="color: rgb(232, 141, 14);">{{ match.team_one }}</span> vs <span style="color: rgb(232, 141, 14);">{{ match.team_two }}</span> Tickets Reservation</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInputDrguid" value="{{ match.id }}" readonly>
-                                <label for="floatingInputDrguid">Match Guid</label>
-                            </div>
-                            <!-- 4*4 grid of seats buttons -->
                             <!-- center grid -->
                             <ul class="showcase">
                                 <li>
@@ -148,80 +143,23 @@
                                 </li>    
                             </ul>
                             <div class="container">
-                                <div class="row">
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat occupied"></div>
-                                    <div class="seat occupied"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat occupied"></div>
-                                    <div class="seat occupied"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat occupied"></div>
-                                    <div class="seat occupied"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat occupied"></div>
-                                    <div class="seat occupied"></div>
-                                    <div class="seat occupied"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                    <div class="seat"></div>
-                                </div>
+                                {% with ''|center:match.venue.rows_num as range %}
+                                    {% for r in range %}
+                                        <div class="row">
+                                            {% with ''|center:match.venue.seats_num as range %}
+                                                {% for c in range %}
+                                                    {% if forloop.parentloop.counter in match.taken_rows and forloop.counter in match.taken_cols %}
+                                                        <div class="seat occupied"></div>
+                                                    {% else %}
+                                                        <div class="seat"></div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endwith %}
+                                        </div>
+                                    {% endfor %}
+                                {% endwith %}
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <p class="text">
                                   You have selected <span id="count">0</span> seats for the total price of Rs. <span id="total">0</span>
                                 </p>
