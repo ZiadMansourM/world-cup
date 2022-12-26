@@ -1,5 +1,6 @@
 {% extends "main/base.html" %} 
 {% load static %}
+{% load define_action %}
 
 {% block js %}
     <script>
@@ -13,17 +14,20 @@
         const seats = document.querySelectorAll('.row .seat:not(.occupied)');
         const count = document.getElementById('count');
         const total = document.getElementById('total');
+        // create selected seats list
+        // const selectedSeats = document.querySelectorAll('.row .seat.selected');
         // const movieSelect = document.getElementById('movie');
 
         // let ticketPrice = +movieSelect.value;
+        let ticketPrice = 10;
 
         //Update total and count
-        // function updateSelectedCount() {
-        //     const selectedSeats = document.querySelectorAll('.row .seat.selected');
-        //     const selectedSeatsCount = selectedSeats.length;
-        //     count.innerText = selectedSeatsCount;
-        //     total.innerText = selectedSeatsCount * ticketPrice;
-        // }
+        function updateSelectedCount() {
+            // const selectedSeats = document.querySelectorAll('.row .seat.selected');
+            // const selectedSeatsCount = selectedSeats.length;
+            // count.innerText = selectedSeatsCount;
+            // total.innerText = selectedSeatsCount * ticketPrice;
+        }
 
         //Movie Select Event
         // movieSelect.addEventListener('change', e => {
@@ -33,11 +37,10 @@
 
         //Seat click event
         container.addEventListener('click', e => {
-            if (e.target.classList.contains('seat') &&
-                !e.target.classList.contains('occupied')) {
+            if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {
                 e.target.classList.toggle('selected');
             }
-            // updateSelectedCount();
+            updateSelectedCount();
         });
     </script>
 {% endblock js %}
@@ -122,51 +125,116 @@
             <div class="modal fade custom-model" id="reserveTicketModal-{{ match.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reserveTicketModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="reserveTicketModal"><span style="color: rgb(232, 141, 14);">{{ match.team_one }}</span> vs <span style="color: rgb(232, 141, 14);">{{ match.team_two }}</span> Tickets Reservation</h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- center grid -->
-                            <ul class="showcase">
-                                <li>
-                                  <div class="seat"></div>
-                                  <small>N/A</small>
-                                </li>
-                                <li>
-                                  <div class="seat selected"></div>
-                                  <small>Selected</small>
-                                </li>
-                                <li>
-                                  <div class="seat occupied"></div>
-                                  <small>Occupied</small>
-                                </li>    
-                            </ul>
-                            <div class="container">
-                                {% with ''|center:match.venue.rows_num as range %}
-                                    {% for r in range %}
-                                        <div class="row">
-                                            {% with ''|center:match.venue.seats_num as range %}
-                                                {% for c in range %}
-                                                    {% if forloop.parentloop.counter in match.taken_rows and forloop.counter in match.taken_cols %}
-                                                        <div class="seat occupied"></div>
-                                                    {% else %}
-                                                        <div class="seat"></div>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            {% endwith %}
+                        <form  action="" method="POST">
+                            {% csrf_token %}
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="reserveTicketModal"><span style="color: rgb(232, 141, 14);">{{ match.team_one }}</span> vs <span style="color: rgb(232, 141, 14);">{{ match.team_two }}</span> Tickets Reservation</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <section x-show="showSeats" x-cloak>
+                                    <!-- center grid -->
+                                    <ul class="showcase">
+                                        <li>
+                                        <div class="seat"></div>
+                                        <small>N/A</small>
+                                        </li>
+                                        <li>
+                                        <div class="seat selected"></div>
+                                        <small>Selected</small>
+                                        </li>
+                                        <li>
+                                        <div class="seat occupied"></div>
+                                        <small>Occupied</small>
+                                        </li>    
+                                    </ul>
+                                    <div class="container">
+                                        {% with ''|center:match.venue.rows_num as range %}
+                                            {% for r in range %}
+                                                <div class="row">
+                                                    {% with ''|center:match.venue.seats_num as range %}
+                                                        {% for c in range %}
+                                                            {% define forloop.parentloop.counter forloop.counter match.taken_seats as taken %}
+                                                            {% if taken %}
+                                                                <div value="{{ forloop.parentloop.counter }} {{ forloop.counter }}" class="seat occupied"></div>
+                                                            {% else %}
+                                                                <div value="{{ forloop.parentloop.counter }} {{ forloop.counter }}" class="seat"></div>
+                                                            {% endif %}
+
+                                                        {% endfor %}
+                                                    {% endwith %}
+                                                </div>
+                                            {% endfor %}
+                                        {% endwith %}
+                                    </div>
+                                    <div class="mt-2">
+                                        <p class="text">
+                                        You have selected <span id="count">0</span> seats. Total price on checkout.
+                                        </p>
+                                    </div>
+                                </section>
+                                <section x-show="!showSeats" x-cloak id="home">
+                                    <div class="form-floating mb-3">
+                                        <input name="cardNumber" type="text" class="form-control" id="floatingInputDrguid" placeholder="Enter Credit Card Number" required>
+                                        <label for="floatingInputDrguid">Enter Credit Card Number</label>
+                                    </div>
+                                    <div class="form-floating pb-2">
+                                        <input name="cardName" type="text" class="form-control" id="floatingInputLogin" placeholder="Enter Name on Card" required>
+                                        <label for="floatingInputLogin">Name on the card</label>
+                                    </div>
+                                    <!-- Same Column -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input name="cardExp" type="text" class="form-control" id="floatingInputDrname" placeholder="Enter Expiration Date" required>
+                                                <label for="floatingInputDrname">Expiration Date</label>
+                                            </div>
                                         </div>
-                                    {% endfor %}
-                                {% endwith %}
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input name="cardCvv" type="text" class="form-control" id="floatingInputDrname" placeholder="Enter CVV" required>
+                                                <label for="floatingInputDrname">CVV</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating custom-form-floating">
+                                        <textarea class="form-control h-100" x-model="chosenSeatsStr" :rows="chosenSeats.length" id="floatingTextarea2" readonly>
+                                        </textarea>
+                                        <label for="floatingTextarea2">Selected Seats</label>
+                                    </div>
+                                    <!-- Same Column -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" x-model="totalDiscount" class="form-control" id="floatingInputDrname" readonly>
+                                                <label for="floatingInputDrname">Total Discount</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" x-model="totalPrice" class="form-control" id="floatingInputDrname" readonly>
+                                                <label for="floatingInputDrname">Total Price</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- hidden field -->
+                                <input type="hidden" name="match-id" value="{{ match.id }}">
+                                <input type="hidden" name="seats" :value="chosenSeatsNames">
+                            <div class="modal-footer">
+                                <section x-show="showSeats" x-cloak id="home">
+                                    <button 
+                                        x-on:click="checkOut({{ match.level_price }}, {{ match.venue.rows_num }})" 
+                                        type="button" class="btn btn-secondary fw-bold border-white bg-white"
+                                    >Checkout</button>
+                                </section>
+                                <section x-show="!showSeats" x-cloak id="home">
+                                    <button
+                                        type="submit" class="btn btn-success fw-bold"
+                                    >Pay</button>
+                                </section>
                             </div>
-                            <div class="mt-2">
-                                <p class="text">
-                                  You have selected <span id="count">0</span> seats for the total price of Rs. <span id="total">0</span>
-                                </p>
-                            </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary fw-bold border-white bg-white" data-bs-dismiss="modal">Nice</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

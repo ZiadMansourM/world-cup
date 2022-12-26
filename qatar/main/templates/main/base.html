@@ -87,10 +87,43 @@
         function state() {
             return {
                 opened: '{{ page }}',
+                showSeats: true,
+                chosenSeats: [],
+                chosenSeatsNames: [],
+                totalPrice: 0.0,
+                totalDiscount: '0.0%',
+                chosenSeatsStr: '',
                 loadInit() {},
-                logOut() {}
+                checkOut(levelPrice, venueRows) {
+                    // get value attribute of all selected seats
+                    const selectedSeats = document.querySelectorAll('.row .seat.selected');
+                    this.chosenSeats = [...selectedSeats].map(seat => {
+                        let alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        let row = alphabets[parseInt(seat.getAttribute('value').split(" ")[0]-1)];
+                        let col = seat.getAttribute('value').split(" ")[1]-1;
+                        let name = `${row}${col}`;
+                        let price = (venueRows*levelPrice-((seat.getAttribute('value').split(" ")[0]-1)*levelPrice)).toFixed(2);
+                        return {
+                            name, 
+                            price
+                        };
+                    });
+                    this.chosenSeatsNames = this.chosenSeats.map(seat => seat.name);
+                    for (let i = 0; i < this.chosenSeats.length; i++) {
+                        this.chosenSeatsStr += `${this.chosenSeats[i].name} ---> $${this.chosenSeats[i].price}\n`;
+                        this.totalPrice += parseFloat(this.chosenSeats[i].price);
+                    }
+                    this.showSeats = false;
+                },
+                cleanUp() {
+                    this.chosenSeats = [];
+                    this.totalPrice = 0.0;
+                    this.chosenSeatsStr = '';
+                    this.showSeats = true;
+                }
             }
         }
     </script>
+    </div>
 </body>
 </html>
