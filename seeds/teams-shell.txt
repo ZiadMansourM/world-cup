@@ -1,0 +1,6 @@
+from main.models import Team
+
+countries="Australia Iran Japan Qatar Saudi-Arabia South-Korea Cameroon Ghana Morocco Senegal Tunisia Canada Costa-Rica Mexico United-States Argentina Brazil Ecuador Uruguay Belgium Croatia Denmark England France Germany Netherlands Poland Portugal Serbia Spain Switzerland Wales".split()
+countries=[country.replace("-", " ") for country in countries]
+
+[Team.objects.create(name=country) for country in countries]

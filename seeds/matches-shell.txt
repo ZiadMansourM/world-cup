@@ -1,0 +1,94 @@
+from main.models import Match, Team, Venue, Referee
+import datetime
+
+// Australia vs Iran - Al Janoub
+// Ivan Barton, Chris Beath, Raphael Claus
+team_one=Team.objects.get(name='Australia')
+team_two=Team.objects.get(name='Iran')
+venue=Venue.objects.get(name='Al Janoub')
+date_time=datetime.datetime(2023, 2, 16, 18, 0, 0)
+main_referee=Referee.objects.get(name='Ivan Barton')
+line_referee_one=Referee.objects.get(name='Chris Beath')
+line_referee_two=Referee.objects.get(name='Raphael Claus')
+Match.objects.create(team_one=team_one, team_two=team_two, score_one=0, score_two=0, venue=venue, level_price=round(4.99, 2), date_time=date_time, main_referee=main_referee, line_referee_one=line_referee_one, line_referee_two=line_referee_two)
+
+// Japan vs Qatar - Al Thumama
+// Matthew Conger, Ismail Elfath, Mario Escobar
+team_one=Team.objects.get(name='Japan')
+team_two=Team.objects.get(name='Qatar')
+venue=Venue.objects.get(name='Al Thumama')
+date_time=datetime.datetime(2023, 2, 17, 18, 0, 0)
+main_referee=Referee.objects.get(name='Matthew Conger')
+line_referee_one=Referee.objects.get(name='Ismail Elfath')
+line_referee_two=Referee.objects.get(name='Mario Escobar')
+Match.objects.create(team_one=team_one, team_two=team_two, venue=venue, level_price=round(4.99, 2), date_time=date_time, main_referee=main_referee, line_referee_one=line_referee_one, line_referee_two=line_referee_two)
+
+// Saudi Arabia vs South Korea - Khalifa International - 6.99
+// Alireza Faghani, Stephanie Frappart, Bakary Gassama
+team_one=Team.objects.get(name='Saudi Arabia')
+team_two=Team.objects.get(name='South Korea')
+venue=Venue.objects.get(name='Khalifa International')
+date_time=datetime.datetime(2023, 2, 19, 21, 0, 0)
+main_referee=Referee.objects.get(name='Alireza Faghani')
+line_referee_one=Referee.objects.get(name='Stephanie Frappart')
+line_referee_two=Referee.objects.get(name='Bakary Gassama')
+Match.objects.create(team_one=team_one, team_two=team_two, venue=venue, level_price=round(6.99, 2), date_time=date_time, main_referee=main_referee, line_referee_one=line_referee_one, line_referee_two=line_referee_two)
+
+
+// Costa Rica vs Mexico - Ahmad Bin Ali
+// Mustapha Ghorbal, Victor Gomes, Istvan Kovacs
+team_one=Team.objects.get(name='Costa Rica')
+team_two=Team.objects.get(name='Mexico')
+venue=Venue.objects.get(name='Ahmad Bin Ali')
+date_time=datetime.datetime(2023, 2, 20, 18, 0, 0)
+main_referee=Referee.objects.get(name='Mustapha Ghorbal')
+line_referee_one=Referee.objects.get(name='Victor Gomes')
+line_referee_two=Referee.objects.get(name='Istvan Kovacs')
+Match.objects.create(team_one=team_one, team_two=team_two, venue=venue, level_price=round(4.99, 2), date_time=date_time, main_referee=main_referee, line_referee_one=line_referee_one, line_referee_two=line_referee_two)
+
+// United States vs Argentina - Education City - 3.99
+// Ning Ma, Danny Makkelie, Szymon Marciniak
+team_one=Team.objects.get(name='United States')
+team_two=Team.objects.get(name='Argentina')
+venue=Venue.objects.get(name='Education City')
+date_time=datetime.datetime(2023, 2, 21, 21, 0, 0)
+main_referee=Referee.objects.get(name='Ning Ma')
+line_referee_one=Referee.objects.get(name='Danny Makkelie')
+line_referee_two=Referee.objects.get(name='Szymon Marciniak')
+Match.objects.create(team_one=team_one, team_two=team_two, venue=venue, level_price=round(3.99, 2), date_time=date_time, main_referee=main_referee, line_referee_one=line_referee_one, line_referee_two=line_referee_two)
+
+
+// Brazil vs Ecuador - Al bayt
+// Antonio Mateu , Andres Matias Matonte Cabrera, Mohammed Abdulla Mohammed
+team_one=Team.objects.get(name='Brazil')
+team_two=Team.objects.get(name='Ecuador')
+venue=Venue.objects.get(name='Al bayt')
+date_time=datetime.datetime(2023, 2, 22, 18, 0, 0)
+main_referee=Referee.objects.get(name='Antonio Mateu')
+line_referee_one=Referee.objects.get(name='Andres Matias Matonte Cabrera')
+line_referee_two=Referee.objects.get(name='Mohammed Abdulla Mohammed')
+Match.objects.create(team_one=team_one, team_two=team_two, venue=venue, level_price=round(4.99, 2), date_time=date_time, main_referee=main_referee, line_referee_one=line_referee_one, line_referee_two=line_referee_two)
+
+
+// Switzerland vs Wales - Lusail
+// Salima Mukansanga, Maguette N’Diaye, Michael Oliver
+team_one=Team.objects.get(name='Switzerland')
+team_two=Team.objects.get(name='Wales')
+venue=Venue.objects.get(name='Lusail')
+date_time=datetime.datetime(2023, 2, 23, 21, 0, 0)
+main_referee=Referee.objects.get(name='Salima Mukansanga')
+line_referee_one=Referee.objects.get(name='Maguette N’Diaye')
+line_referee_two=Referee.objects.get(name='Michael Oliver')
+Match.objects.create(team_one=team_one, team_two=team_two, venue=venue, level_price=round(4.99, 2), date_time=date_time, main_referee=main_referee, line_referee_one=line_referee_one, line_referee_two=line_referee_two)
+
+
+// Serbia Spain - Stadium 974
+// Daniele Orsato, Kevin Orteg, Cesar Ramos
+team_one=Team.objects.get(name='Serbia')
+team_two=Team.objects.get(name='Spain')
+venue=Venue.objects.get(name='Stadium 974')
+date_time=datetime.datetime(2023, 2, 24, 18, 0, 0)
+main_referee=Referee.objects.get(name='Daniele Orsato')
+line_referee_one=Referee.objects.get(name='Kevin Orteg')
+line_referee_two=Referee.objects.get(name='Cesar Ramos')
+Match.objects.create(team_one=team_one, team_two=team_two, venue=venue, level_price=round(4.99, 2), date_time=date_time, main_referee=main_referee, line_referee_one=line_referee_one, line_referee_two=line_referee_two)

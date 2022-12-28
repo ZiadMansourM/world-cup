@@ -1,0 +1,12 @@
+from main.models import Venue
+
+Venue.objects.create(name="Al Janoub", rows_num=26, seats_num=10)
+Venue.objects.create(name="Al Thumama", rows_num=20, seats_num=10)
+Venue.objects.create(name="Khalifa International", rows_num=26, seats_num=10)
+Venue.objects.create(name="Ahmad Bin Ali", rows_num=10, seats_num=10)
+Venue.objects.create(name="Education City", rows_num=5, seats_num=10)
+Venue.objects.create(name="Al bayt", rows_num=15, seats_num=10)
+Venue.objects.create(name="Lusail", rows_num=10, seats_num=5)
+Venue.objects.create(name="Stadium 974", rows_num=5, seats_num=10)
+
+// 1120 seats

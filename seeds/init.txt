@@ -1,0 +1,31 @@
+from main.models import Team
+countries="Australia Iran Japan Qatar Saudi-Arabia South-Korea Cameroon Ghana Morocco Senegal Tunisia Canada Costa-Rica Mexico United-States Argentina Brazil Ecuador Uruguay Belgium Croatia Denmark England France Germany Netherlands Poland Portugal Serbia Spain Switzerland Wales".split()
+countries=[country.replace("-", " ") for country in countries]
+[Team.objects.create(name=country) for country in countries]
+
+from main.models import Venue
+Venue.objects.create(name="Al Janoub", rows_num=26, seats_num=10)
+Venue.objects.create(name="Al Thumama", rows_num=20, seats_num=10)
+Venue.objects.create(name="Khalifa International", rows_num=26, seats_num=10)
+Venue.objects.create(name="Ahmad Bin Ali", rows_num=10, seats_num=10)
+Venue.objects.create(name="Education City", rows_num=5, seats_num=10)
+Venue.objects.create(name="Al bayt", rows_num=15, seats_num=10)
+Venue.objects.create(name="Lusail", rows_num=10, seats_num=5)
+Venue.objects.create(name="Stadium 974", rows_num=5, seats_num=10)
+
+from main.models import Referee
+referees="Ivan-Barton Chris-Beath Raphael-Claus Matthew-Conger Ismail-Elfath Mario-Escobar Alireza-Faghani Stephanie-Frappart Bakary-Gassama Mustapha-Ghorbal Victor-Gomes Istvan-Kovacs Ning-Ma Danny-Makkelie Szymon-Marciniak Antonio-Mateu Andres-Matias-Matonte-Cabrera Mohammed-Abdulla-Mohammed Salima-Mukansanga Maguette-N’Diaye Michael-Oliver Daniele-Orsato Kevin-Ortega Cesar-Ramos Fernando-Rapallini Wilton-Sampaio Daniel-Siebert Janny-Sikazwe Anthony-Taylor Facundo-Tello Clement-Turpin Jesus-Valenzuela Yoshimi-Yamashita".split()
+referees=[referee.replace("-", " ") for referee in referees]
+[Referee.objects.create(name=referee) for referee in referees]
+
+
+from main.models import Match, Team, Venue, Referee
+import datetime
+team_one=Team.objects.get(name='Australia')
+team_two=Team.objects.get(name='Iran')
+venue=Venue.objects.get(name='Al Janoub')
+date_time=datetime.datetime(2023, 2, 16, 15, 0, 0)
+main_referee=Referee.objects.get(name='Ivan Barton')
+line_referee_one=Referee.objects.get(name='Chris Beath')
+line_referee_two=Referee.objects.get(name='Raphael Claus')
+Match.objects.create(team_one=team_one, team_two=team_two, venue=venue, level_price=round(4.99, 2), date_time=date_time, main_referee=main_referee, line_referee_one=line_referee_one, line_referee_two=line_referee_two)
