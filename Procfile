@@ -1,0 +1,1 @@
+ cd qatar && web gunicorn qatar.wsgi:application --log-file -
