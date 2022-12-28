@@ -74,10 +74,10 @@ body {
     color: white;
 }
 
-    .form-control:focus {
-        background-color: hsl(218, 41%, 15%);
-        color: white;
-    }
+.form-control:focus {
+    background-color: hsl(218, 41%, 15%);
+    color: white;
+}
 
 input:autofill {
     background-color: hsl(218, 41%, 15%);
@@ -95,21 +95,21 @@ input:-webkit-autofill {
     padding-bottom: 13px;
 }
 
-    .custom-form-floating:before {
-        content: '';
-        position: absolute;
-        top: 1px; /* border-width (default by BS) */
-        left: 1px; /* border-width (default by BS) */
-        /*width: calc(100% - 14px);*/ /* to show scrollbar */
-        height: 32px;
-        border-radius: 4px; /* (default by BS) */
-        background-color: #212529;
-    }
+.custom-form-floating:before {
+    content: '';
+    position: absolute;
+    top: 1px; /* border-width (default by BS) */
+    left: 1px; /* border-width (default by BS) */
+    /*width: calc(100% - 14px);*/ /* to show scrollbar */
+    height: 32px;
+    border-radius: 4px; /* (default by BS) */
+    background-color: #212529;
+}
 
-    .custom-form-floating textarea.form-control {
-        padding-top: 30px; /* height of pseudo element 32 px */
-        /*min-height: 80px;*/ /* not relevant */
-    }
+.custom-form-floating textarea.form-control {
+    padding-top: 30px; /* height of pseudo element 32 px */
+    /*min-height: 80px;*/ /* not relevant */
+}
 
 .alert-danger {
     color: rgb(232, 141, 14);
@@ -122,11 +122,11 @@ input:-webkit-autofill {
     color: #FFF !important;
 }
 
-    .btn-alert-cls:hover {
-        cursor: pointer;
-        color: #FFF !important;
-        text-decoration: none;
-    }
+.btn-alert-cls:hover {
+    cursor: pointer;
+    color: #FFF !important;
+    text-decoration: none;
+}
 
 .table {
     table-layout: fixed;
@@ -143,22 +143,22 @@ td {
     color: rgb(232, 141, 14);
 }
 
-    td.ellipses {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
+td.ellipses {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 
-    td a {
-        text-decoration: none;
-        color: rgb(232, 141, 14);
-    }
+td a {
+    text-decoration: none;
+    color: rgb(232, 141, 14);
+}
 
-        td a:hover {
-            text-decoration: none;
-            color: rgb(232, 141, 14);
-            cursor: pointer;
-        }
+td a:hover {
+    text-decoration: none;
+    color: rgb(232, 141, 14);
+    cursor: pointer;
+}
 
 li a:hover {
     cursor: pointer;

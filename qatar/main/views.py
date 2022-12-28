@@ -2,6 +2,7 @@ import string
 from django.shortcuts import redirect, render
 from main.models import Match, Ticket, Seat
 from django.contrib import messages
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
@@ -13,18 +14,30 @@ def home(request):
 
 def match_list(request):
     if request.method == 'POST':
-        match_id = request.POST.get('match-id')
-        seats = request.POST.get('seats').split(',')
-        match = Match.objects.get(id=match_id)
-        for seat_number in seats:
-            seat = Seat.objects.get(
-                venue=match.venue,
-                row=string.ascii_uppercase.find(seat_number[0])+1,
-                seat=int(seat_number[1])+1
-            )
-            Ticket.objects.create(match=match, seat=seat, owner=request.user)
-            messages.success(request, f'Ticket for {seat_number} booked successfully!')
-        return redirect('match-list')
+        if request.POST.get('manager-role'):
+            if manager_role := request.POST.get('manager-role'):
+                request.user.is_manager = True
+                request.user.is_staff = True
+                Group.objects.get(name="Managers").user_set.add(request.user)
+                request.user.save()
+                messages.success(request, 'You are now a manager!')
+                return redirect('match-list')
+        elif request.POST.get('match-id'):
+            match_id = request.POST.get('match-id')
+            seats = request.POST.get('seats').split(',')
+            match = Match.objects.get(id=match_id)
+            for seat_number in seats:
+                seat = Seat.objects.get(
+                    venue=match.venue,
+                    row=string.ascii_uppercase.find(seat_number[0])+1,
+                    seat=int(seat_number[1])+1
+                )
+                Ticket.objects.create(match=match, seat=seat, owner=request.user)
+                messages.success(request, f'Ticket for {seat_number} booked successfully!')
+            return redirect('match-list')
+        else:
+            messages.error(request, 'We wish you join us soon ^^')
+            return redirect('match-list')
     matches = Match.objects.all()
     tickets = Ticket.objects.all()
     for match in matches:

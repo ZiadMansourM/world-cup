@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'qatar.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'qatar_db',
-        'USER': 'qatar_user',
+        'NAME': 'postgres',
+        'USER': 'postgres',
         'PASSWORD': 'qatar_user_password',
-        'HOST': 'localhost',
+        'HOST': 'consultation.cbtdh9zmli7f.us-east-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }

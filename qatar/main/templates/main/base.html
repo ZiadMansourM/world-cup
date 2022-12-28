@@ -48,6 +48,10 @@
                 <li class="nav-item"><a class="nav-link" x-bind:class="opened=='home'?'active':''" href="{% url 'home' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" x-bind:class="opened=='matches'?'active':''" href="{% url 'match-list' %}">Matches</a></li>
                 {% if user.is_authenticated %}
+                    <!-- Admin -->
+                    {% if user.is_manager %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
+                    {% endif %}
                     <!-- profile -->
                     <li class="nav-item"><a class="nav-link" x-bind:class="opened=='profile'?'active':''" href="{% url 'profile' %}">Profile</a></li>
                     <!-- log out -->
@@ -122,10 +126,6 @@
                     this.totalPrice = 0.0;
                     this.chosenSeatsStr = '';
                     this.showSeats = true;
-                },
-                deleteTicket(ticketId) {
-                    // submit form
-                    document.getElementById(`delete-ticket-${ticketId}`).submit();
                 }
             }
         }
