@@ -22,7 +22,7 @@ def match_list(request):
                 row=string.ascii_uppercase.find(seat_number[0])+1,
                 seat=int(seat_number[1])+1
             )
-            Ticket.objects.create(match=match, seat=seat)
+            Ticket.objects.create(match=match, seat=seat, owner=request.user)
             messages.success(request, f'Ticket for {seat_number} booked successfully!')
         return redirect('match-list')
     matches = Match.objects.all()

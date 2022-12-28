@@ -48,6 +48,6 @@ class MatchAdmin(admin.ModelAdmin):
 
 @admin.register(models.Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('match', 'seat', 'price')
-    search_fields = ('match__venue__name', 'seat__venue__name', 'seat__seat_name')
+    list_display = ('match', 'seat', 'owner', 'price')
+    search_fields = ('match__venue__name', 'seat__venue__name', 'seat__seat_name', 'owner__username',)
     ordering = ('match', 'seat')

@@ -8,6 +8,7 @@ from django.contrib.auth import (
     get_user_model
 )
 from django.contrib.auth.decorators import login_required
+from main.models import Ticket
 
 # Create your views here.
 def login(request):
@@ -53,6 +54,12 @@ def register(request):
 def profile(request):
     user = request.user
     if request.method == 'POST':
+        if request.POST.get('ticket-id'):
+            ticket_id = request.POST['ticket-id']
+            ticket = Ticket.objects.get(id=ticket_id)
+            ticket.delete()
+            messages.success(request, 'Ticket deleted successfully!')
+            return redirect('profile')
         if request.POST.get('password-one', False) and request.POST.get('password-two', False):
             password_one = request.POST['password-one']
             password_two = request.POST['password-two']
@@ -90,8 +97,10 @@ def profile(request):
             user.save()
             messages.success(request, 'Profile updated successfully!')
             return redirect('profile')
+    tickets = Ticket.objects.filter(owner=user)
     return render(request, 'users/profile.html', {
         'user': user,
+        'tickets': tickets,
         'title': 'Profile',
         'page': 'profile'
     })

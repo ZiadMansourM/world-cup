@@ -55,10 +55,55 @@
                         <button type="button" data-bs-toggle="modal" data-bs-target="#changePasswordModel" class="w-100 btn btn-sm btn-danger">Change Password</button>
                     </div>
                 </div>
-                <button type="button" class="w-100 btn btn-success mt-2">View Tickets</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#ViewTicketsModal" class="w-100 btn btn-success mt-2">View Tickets</button>
             </form>
         </div>
     </section>
+    <!-- View Tickets -->
+    <div class="modal fade custom-model" id="ViewTicketsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewTicketsModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Hidden Input -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ViewTicketsModal">Your Tickets</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table text-white">
+                            <thead>
+                                <tr class="d-flex">
+                                    <th class="col-1" scope="col">#</th>
+                                    <th class="col-4" scope="col">Match</th>
+                                    <th class="col-2" scope="col">Seat</th>
+                                    <th class="col-3" scope="col">Price</th>
+                                    <th class="col-2" scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ticket in tickets %}
+                                    <tr class="d-flex">
+                                        <th class="col-1" scope="row">{{ forloop.counter }}</th>
+                                        <td class="col-4 ellipses">{{ ticket.match }}</td>
+                                        <td class="col-2">{{ ticket.seat.seat_name }}</td>
+                                        <td class="col-3">{{ ticket.price }}</td>
+                                        <form id="delete-form-{{ ticket.id }}" action="" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="ticket-id" value="{{ ticket.id }}">
+                                            <td class="col-2"><a data-bs-dismiss="modal" x-on:click="document.getElementById('delete-form-{{ ticket.id }}').submit();">delete</a></td>
+                                        </form>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary fw-bold border-white bg-white" data-bs-dismiss="modal">Nice</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Change Password Modal -->
     <div class="modal fade custom-model" id="changePasswordModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailMatchModel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

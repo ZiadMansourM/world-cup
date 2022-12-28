@@ -2,6 +2,7 @@ import string
 import uuid
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth import get_user_model
 from django.forms import ValidationError
 from django.utils import timezone
 from django.db.models import Q
@@ -28,11 +29,11 @@ class Venue(models.Model):
         return f"A:{string.ascii_uppercase[self.rows_num-1]}x{self.seats_num}={self.rows_num*self.seats_num}"
 
     def save(self, *args, **kwargs):
+        super(Venue, self).save(*args, **kwargs)
         Seat.objects.filter(venue=self).delete()
         for row in range(1, self.rows_num+1):
             for seat in range(1, self.seats_num+1):
                 Seat.objects.create(venue=self, row=row, seat=seat)
-        super(Venue, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} <{self.size}>"
@@ -73,7 +74,7 @@ class Match(models.Model):
     score_one = models.IntegerField(default=0)
     score_two = models.IntegerField(default=0)
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
-    level_price = models.DecimalField(max_digits=5, decimal_places=2, default=4.99)
+    level_price = models.DecimalField(max_digits=7, decimal_places=2, default=4.99)
     date_time = models.DateTimeField()
     main_referee = models.ForeignKey(Referee, on_delete=models.CASCADE, related_name='main_referee')
     line_referee_one = models.ForeignKey(Referee, on_delete=models.CASCADE, related_name='line_referee_one')
@@ -132,6 +133,7 @@ class Match(models.Model):
 
 class Ticket(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
 
