@@ -76,10 +76,12 @@
         {% endif %}
         {% block content %}{% endblock content %}
     </main>
+    {% block modals %}{% endblock modals %}
     <!-- Footer -->
     <footer class="text-white-50">
         <p>&copy; <span x-text="new Date().getFullYear()"></span> <a href="https://www.SREboy.com/" class="text-white link">Qatar.SREboy.com</a></p>
     </footer>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <!-- Bootstrap Bundle -->
     <script src="{% static 'main/js/bootstrap.bundle.min.js' %}"></script>
     {% block js %}{% endblock js %}
