@@ -66,7 +66,11 @@
                             <th class="col-1" scope="row">{{ forloop.counter }}</th>
                             <td class="col-5 ellipses"><a data-bs-toggle="modal" data-bs-target="#detailMatchModal-{{ match.id }}">{{ match }}</a></td>
                             <td class="col-3">{{ match.score_one }} - {{ match.score_two }}</td>
-                            <td class="col-3"><a data-bs-toggle="modal" data-bs-target="#reserveTicketModal-{{ match.id }}">link</a></td>
+                            {% if user.is_authenticated %}
+                                <td class="col-3"><a data-bs-toggle="modal" data-bs-target="#reserveTicketModal-{{ match.id }}">link</a></td>
+                            {% else %}
+                                <td class="col-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign In First">link</td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>
