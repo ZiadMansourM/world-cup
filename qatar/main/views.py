@@ -1,6 +1,6 @@
 import string
 from django.shortcuts import redirect, render
-from main.models import Match, Ticket, Seat
+from main.models import Match, Ticket, Seat, ContactUs
 from django.contrib import messages
 from django.contrib.auth.models import Group
 
@@ -15,13 +15,12 @@ def home(request):
 def match_list(request):
     if request.method == 'POST':
         if request.POST.get('manager-role'):
-            if manager_role := request.POST.get('manager-role'):
-                request.user.is_manager = True
-                request.user.is_staff = True
-                Group.objects.get(name="Managers").user_set.add(request.user)
-                request.user.save()
-                messages.success(request, 'You are now a manager!')
-                return redirect('match-list')
+            ContactUs.objects.create(user=request.user, confirmed=True)
+            # request.user.is_manager = True
+            # request.user.is_staff = True
+            # Group.objects.get(name="Managers").user_set.add(request.user)
+            # request.user.save()
+            messages.success(request, 'Your request will be reviewed soon!')
         elif request.POST.get('match-id'):
             match_id = request.POST.get('match-id')
             seats = request.POST.get('seats').split(',')
@@ -34,10 +33,9 @@ def match_list(request):
                 )
                 Ticket.objects.create(match=match, seat=seat, owner=request.user)
                 messages.success(request, f'Ticket for {seat_number} booked successfully!')
-            return redirect('match-list')
         else:
             messages.error(request, 'We wish you join us soon ^^')
-            return redirect('match-list')
+        return redirect('match-list')
     matches = Match.objects.all()
     tickets = Ticket.objects.all()
     for match in matches:

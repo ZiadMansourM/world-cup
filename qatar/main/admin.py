@@ -51,3 +51,6 @@ class TicketAdmin(admin.ModelAdmin):
     list_display = ('match', 'seat', 'owner', 'price')
     search_fields = ('match__venue__name', 'seat__venue__name', 'seat__seat_name', 'owner__username',)
     ordering = ('match', 'seat')
+
+# register ContactUs model
+admin.site.register(models.ContactUs)

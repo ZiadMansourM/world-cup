@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.forms import ValidationError
 from django.utils import timezone
 from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 class Team(models.Model):
@@ -156,3 +157,19 @@ class Ticket(models.Model):
 
     class Meta:
         db_table = 'tickets'
+
+class ContactUs(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    confirmed = models.BooleanField(
+        _('Confirmed status'),
+        default=False,
+        help_text=_('Designates whether the user agreed.'),
+    )
+
+    def __str__(self):
+        return f'{self.user} requested to be a manager'
+
+    class Meta:
+        db_table = 'contact_us'
+        verbose_name_plural = "Contact Us"
